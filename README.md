@@ -54,7 +54,7 @@ Install the plugin that matches how you plan to add Foldspace to your product.
 Add the Foldspace marketplace once:
 
 ```bash
-claude plugin marketplace add Eucera/mcp-plugins
+claude plugin marketplace add foldspace-ai/plugins
 ```
 
 Then install the plugin that matches your project:
