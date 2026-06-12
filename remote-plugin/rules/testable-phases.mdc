@@ -1,0 +1,36 @@
+---
+description: Require unit and integration tests for each implementation phase of an extension action.
+globs:
+  - "**/agent/actions/**/*"
+  - "**/agent/api/**/*"
+  - "**/extension/**/*"
+  - "**/__tests__/**/*"
+  - "**/*.test.*"
+  - "**/*.spec.*"
+alwaysApply: false
+---
+
+# Testable Independent Phases
+
+When planning and building extension actions, structure work into independent, testable phases.
+
+## Planning
+
+- Each step in the implementation plan must be a self-contained phase that can be verified in isolation before moving to the next.
+- A phase should have clearly defined inputs, outputs, and success criteria so tests can assert on it independently.
+- Do not bundle unrelated concerns (e.g. auth extraction + DOM manipulation + API call) into a single phase. Split them so each can be tested on its own.
+- Present the phase breakdown to the user for approval before implementation begins.
+
+## Testing Requirements
+
+- Every phase must include both unit tests and integration tests before it is considered complete.
+- Unit tests validate the phase's logic in isolation (mocked dependencies, edge cases, error paths).
+- Integration tests validate the phase works correctly with its real dependencies (API helpers, shared utilities, other phases).
+- Tests must pass before moving to the next phase. Do not defer test writing to the end.
+
+## Phase Independence
+
+- Each phase must be independently runnable and testable without requiring later phases to exist.
+- Shared utilities and API helpers introduced in one phase must be tested in that same phase, not deferred.
+- If a phase depends on output from a prior phase, mock that output in unit tests and use the real prior phase in integration tests.
+- When a phase is complete and tested, it should be safe to merge or review on its own.

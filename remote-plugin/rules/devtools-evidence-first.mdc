@@ -1,0 +1,22 @@
+---
+description: Require live browser evidence before implementing no-source-access extension-based integration actions.
+globs:
+  - "**/agent/actions/**/*"
+alwaysApply: false
+---
+
+# DevTools Evidence First
+
+For no-source-access Foldspace extension-based integrations, do not guess customer API contracts from UI labels alone.
+
+Before implementing an action, capture or ask for:
+
+- The user-approved action goal and step-by-step flow.
+- The exact user workflow and page URL.
+- Network method, URL pattern, headers, auth source, request payload, and response shape.
+- The ordered list of API endpoints this action will call.
+- Relevant cookies/localStorage/sessionStorage keys without secret values.
+- DOM selectors only when API calls are insufficient.
+- Edge cases: empty results, permission errors, validation errors, pagination, and workspace/account switching.
+
+If evidence is incomplete, mark the action as a stub and list the missing browser observations. Do not write implementation code until the user has approved the action plan.

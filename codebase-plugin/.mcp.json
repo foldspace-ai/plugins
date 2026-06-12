@@ -1,0 +1,14 @@
+{
+  "mcpServers": {
+    "foldspace": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@foldspace_npm/foldspace-mcp@latest"
+      ],
+      "env": {
+        "FOLDSPACE_API_KEY": "${FOLDSPACE_API_KEY}"
+      }
+    }
+  }
+}

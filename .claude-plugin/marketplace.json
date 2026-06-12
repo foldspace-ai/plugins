@@ -1,0 +1,35 @@
+{
+  "name": "foldspace-plugins",
+  "owner": {
+    "name": "Foldspace"
+  },
+  "metadata": {
+    "description": "Foldspace plugins for adding AI agents to products with or without source-code access."
+  },
+  "plugins": [
+    {
+      "name": "foldspace-codebase-plugin",
+      "source": "./codebase-plugin",
+      "description": "Add a Foldspace AI agent to a website you have the source code for.",
+      "category": "developer-tools",
+      "tags": [
+        "foldspace",
+        "ai-agent",
+        "frontend",
+        "actions"
+      ]
+    },
+    {
+      "name": "foldspace-remote-plugin",
+      "source": "./remote-plugin",
+      "description": "Add a Foldspace AI agent to a website you do not have the source code for by building a browser extension.",
+      "category": "developer-tools",
+      "tags": [
+        "foldspace",
+        "ai-agent",
+        "browser-extension",
+        "no-source-access"
+      ]
+    }
+  ]
+}

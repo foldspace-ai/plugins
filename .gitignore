@@ -1,0 +1,40 @@
+# Dependencies
+node_modules/
+
+# Build output
+dist/
+build/
+out/
+.next/
+.turbo/
+.vite/
+coverage/
+
+# Packaged plugin or extension artifacts
+*.zip
+*.tgz
+*.vsix
+*.crx
+*.pem
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+
+# Logs and runtime state
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# OS and editor noise
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# TypeScript cache
+*.tsbuildinfo

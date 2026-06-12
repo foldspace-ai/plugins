@@ -1,0 +1,20 @@
+---
+description: Reuse existing frontend patterns when building Foldspace Chatterblocks, Shared State, or SDK UI.
+globs: "**/*.{js,jsx,ts,tsx}"
+alwaysApply: false
+---
+
+# Foldspace Frontend Reuse
+
+When adding Foldspace UI in a customer frontend:
+
+- Search for existing components before creating new UI.
+- Prefer existing form controls, cards, modals, buttons, tables, validation
+  helpers, API clients, and styling utilities.
+- Match the app's framework, accessibility conventions, product voice, and
+  design system.
+- For Chatterblocks, wire `awaitUserInput`, `callback`, and `cancel`
+  intentionally.
+- For Shared State, use stable state keys, accurate state descriptions, and
+  `clearState` cleanup on unmount.
+- Create new components only when no suitable existing component exists.

@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        {
+          "operation": "remove",
+          "header": "content-security-policy"
+        },
+        {
+          "operation": "remove",
+          "header": "content-security-policy-report-only"
+        },
+        {
+          "operation": "remove",
+          "header": "x-frame-options"
+        }
+      ]
+    },
+    "condition": {
+      "requestDomains": ["APP_DOMAIN"],
+      "excludedRequestDomains": ["foldspace.ai"],
+      "resourceTypes": [
+        "main_frame",
+        "sub_frame",
+        "stylesheet",
+        "script",
+        "xmlhttprequest",
+        "font",
+        "object",
+        "image",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  },
+  {
+    "id": 2,
+    "priority": 1,
+    "action": {
+      "type": "modifyHeaders",
+      "responseHeaders": [
+        {
+          "operation": "set",
+          "header": "access-control-allow-origin",
+          "value": "APP_DOMAIN"
+        },
+        {
+          "operation": "set",
+          "header": "access-control-allow-methods",
+          "value": "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"
+        },
+        {
+          "operation": "set",
+          "header": "access-control-allow-headers",
+          "value": "*"
+        },
+        {
+          "operation": "set",
+          "header": "access-control-allow-credentials",
+          "value": "true"
+        }
+      ]
+    },
+    "condition": {
+      "requestDomains": ["localhost", "script.eucerahive.io"],
+      "excludedRequestDomains": ["foldspace.ai"],
+      "resourceTypes": [
+        "script",
+        "xmlhttprequest",
+        "stylesheet",
+        "font",
+        "image",
+        "media",
+        "websocket",
+        "other"
+      ]
+    }
+  }
+]
