@@ -161,15 +161,16 @@ Recommended next-step routing: If handlers are missing or mismatched, recommend
 recommend `foldspace-plan-action`. If the user does not know what actions should
 exist, recommend `foldspace-discover-actions`.
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+End with a verification decision and the clearest possible next action. If blocked, recommend exactly one skill and the concrete inputs needed to fix the blocker.
+
+End every response with:
 
 ```markdown
-Summary:
-- Completed: <what actions were verified>
-- Concepts: <Foldspace terms reinforced, e.g. enabled action, handler match, schema match, overlap>
-- If you did this yourself: list enabled actions, find each handler key, compare schemas, and check that no two actions compete for the same user request.
-- Next step: <one recommended `foldspace-*` skill with concrete inputs>
-- Blockers: <missing MCP access, missing schemas, missing handlers, or None>
+Verification decision: <Ready, Ready with limitations, or Blocked>
+
+Action items:
+- <one exact next skill, verification step, or fix with concrete inputs>
+- <one MCP access, schema, handler, or action overlap detail needed from the user, only if needed>
 ```

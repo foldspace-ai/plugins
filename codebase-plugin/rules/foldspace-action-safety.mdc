@@ -18,3 +18,5 @@ When editing Foldspace action handlers:
   server internals to the agent.
 - Keep success returns minimal: include only data needed for the agent's next
   response.
+- Don't return instructions to the agent through the actions, only return data it can use.
+  Any instructions should be set through the mcp or the UI in the agent studio

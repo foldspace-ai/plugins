@@ -20,7 +20,7 @@ validate before sharing.
 
 ## The Path In This Plugin
 
-`foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` (when needed) -> `foldspace-verify-actions`.
+`foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` (when needed) -> `foldspace-verify-actions`.
 
 If the user skipped a step, route them to the earliest incomplete one.
 
@@ -104,6 +104,7 @@ a no-source-access extension.
    - No extension exists yet.
    - `.env.foldspace` is configured for Foldspace MCP, if action creation or updates are needed.
    - The extension is created (scaffolded).
+   - Action candidates have been discovered from the business/product name.
    - One action candidate is selected.
    - DevTools evidence has been collected for that action.
    - The remote action implementation plan is approved.
@@ -112,7 +113,8 @@ a no-source-access extension.
    - The extension is ready for final validation.
 3. Route to the earliest incomplete step:
    - No extension: `foldspace-create-extension`.
-   - Extension exists but action flow is unknown: `foldspace-observe-flow-in-site`.
+   - Extension exists but action candidates are unknown: `foldspace-discover-actions`.
+   - One candidate is selected but action flow is unknown: `foldspace-observe-flow-in-site`.
    - API evidence and schema are known: `foldspace-build-action`.
    - Route labels or continuation are needed: `foldspace-add-navigation`.
    - Extension actions are ready to verify: `foldspace-verify-actions`.
@@ -138,15 +140,15 @@ Run `<namespaced foldspace remote skill command>` because <one-sentence reason>.
 - <short ordered list of remaining remote skills>
 ```
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+Always end with concise user-owned action items, not a recap. Include at most three bullets unless a blocker needs one more. Avoid `Summary`, `Completed`, `Evidence`, and `Decisions` sections.
+
+If no extension exists, say that you are reading `foldspace-create-extension` now and ask whether you can start the creation workflow while they retrieve the snippet. Don't ask the user to run the next skill; ask if you can start the next step, or ask what next step they want if they already have an extension.
 
 ```markdown
-Summary:
-- Completed: identified the remote extension starting point.
-- Concepts: <any Foldspace terms you introduced, e.g. browser extension, action, DevTools evidence>
-- If you did this yourself: pick the earliest milestone you have not finished (create → learn → build → navigate → validate).
-- Next step: <exact `/foldspace-*` skill command and concrete input>
-- Blockers: <missing target URL, API key, product ID, Agent API Name, DevTools evidence, approval, or None>
+Action items:
+- <one exact next remote skill or workflow step with concrete input>
+- <one user-owned target URL, API key, Product ID, Agent API Name, DevTools evidence, or approval, only if needed>
+- <one correction logging step, only if the user corrected agent-created work>
 ```

@@ -119,15 +119,14 @@ Run `<namespaced foldspace skill command>` because <one-sentence reason>.
 - <short ordered list of remaining skills>
 ```
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+Always end with concise user-owned action items, not a recap. Include at most three bullets unless a blocker needs one more. Avoid `Summary`, `Completed`, `Evidence`, and `Decisions` sections.
+
+If setup has not started, ask whether you can start the setup workflow while they retrieve the agent snippet. Don't ask the user to run the next skill; ask if you can start the next step, or ask what next step they want if they already have an agent installed.
 
 ```markdown
-Summary:
-- Completed: identified the user's starting point and path.
-- Concepts: <any Foldspace terms you introduced, e.g. agent, action>
-- If you did this yourself: skim the Foldspace setup docs and pick the first milestone you have not finished.
-- Next step: <exact `/foldspace-*` skill command and concrete input>
-- Blockers: <missing agent snippet, Agent API Name, action idea, approval, or None>
+Action items:
+- <one exact next Foldspace skill or workflow step with concrete input>
+- <one user-owned agent snippet, Agent API Name, action idea, or approval, only if needed>
 ```

@@ -61,12 +61,35 @@ behavior defined, use `foldspace-plan-action` instead.
 
 ## Discovery Workflow
 
-1. **Clarify the product goal.**
-   - Ask what product or user workflow matters most if it is unclear.
-   - Keep this lightweight; the codebase scan should teach you most of the
-     product surface.
+1. **Ask for the business or product name.**
+   - Always ask the user for the business/product name before discovery. Do not
+     infer it silently from the repo.
+   - Use the Foldspace MCP `discover_actions` tool first, with the user's
+     business/product name and the target Foldspace agent ID.
+   - Tell the user that cold task-agent runs can take 20-30 seconds and cached
+     runs are usually faster. Wait for the tool result instead of retrying.
+   - Treat the returned suggestions as the search brief for codebase
+     exploration, not the final implementation inventory. Extract each returned
+     action title, action key, trigger, pain point, category, and what-it-solves
+     note before scanning the repo.
 
-2. **Use subagents for broad codebase scanning when available.**
+2. **Search the codebase using the MCP suggestions as the brief.**
+   - For each MCP suggestion, search for matching route labels, page titles,
+     components, forms, buttons, API clients, mutations, service calls,
+     validation schemas, permissions, analytics events, and state stores.
+   - Use the suggested `when_action_triggered`, `related_painpoint`, and
+     `what_it_solves` fields to generate search terms. For example, an "invite
+     teammate" suggestion should lead you to search for invite/team/member/user
+     management flows before proposing implementation locations.
+   - Mark each suggestion as:
+     - **Supported**: clear files or APIs exist in the codebase.
+     - **Partially supported**: related UI exists but APIs/schema/evidence are
+       incomplete.
+     - **Not found**: no obvious implementation surface found.
+   - Do not present MCP suggestions as build-ready until this codebase evidence
+     pass is complete.
+
+3. **Use subagents for broad codebase scanning when available.**
    - Prefer the `foldspace-product-scout` subagent. It is specialized for
      finding Foldspace action, Chatterblock, Shared State, and navigation
      opportunities in frontend codebases.
@@ -76,9 +99,14 @@ behavior defined, use `foldspace-plan-action` instead.
    - If subagents are unavailable, perform both scans directly.
    - Ask each scan to return file paths, user workflows, existing components,
      and action opportunity notes. Do not ask subagents to edit files.
+   - Include the MCP suggestions in the subagent prompt and ask the subagent to
+     validate those specific candidates before adding new ones.
 
-3. **Synthesize action opportunities.**
+4. **Synthesize action opportunities.**
    - Read `action-design.md`.
+   - Merge the task-agent suggestions with codebase evidence from the scan.
+   - Prefer suggested actions that are supported by real routes, components,
+     API clients, mutations, validation schemas, or user workflows in the repo.
    - Look for repeated manual work, multi-step workflows, data entry,
      approvals, summarization, record creation, status updates, and places
      where users need guidance.
@@ -86,7 +114,7 @@ behavior defined, use `foldspace-plan-action` instead.
      API clients, and validation patterns.
    - Separate normal action handlers from Shared State opportunities.
 
-4. **Rank the candidates.**
+5. **Rank the candidates.**
    - Group candidates into:
      - Quick wins.
      - High-impact workflows.
@@ -94,14 +122,16 @@ behavior defined, use `foldspace-plan-action` instead.
      - Shared State / Tandem Mode candidates.
    - Prefer a short ranked list over a long inventory.
 
-5. **Present the recommendations.**
+6. **Present the recommendations.**
    - For each candidate, include:
      - Action name and proposed action ID.
+     - Whether it came from MCP discovery, codebase scanning, or both.
      - User problem solved.
      - Suggested modality: Text-Only, Chatterblock, or Shared State.
      - Required parameters.
      - Expected return shape to the LLM.
      - Likely implementation location.
+     - Evidence files or APIs found during the MCP-guided codebase search.
      - Current flow and AI-enabled flow.
      - Success metric or business KPI.
      - Exit criteria and loop-risk notes.
@@ -139,15 +169,14 @@ Ask which action to turn into a Foldspace-ready plan with `foldspace-plan-action
 Recommended next-step routing: Ask which candidate action to turn into a plan
 with `foldspace-plan-action`.
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+After discovery, tell the user which candidates are strongest only as much as needed to choose the next plan. End with concise user-owned action items instead of a recap.
+
+End every response with:
 
 ```markdown
-Summary:
-- Completed: <what was discovered>
-- Concepts: <Foldspace terms introduced, e.g. action, modality, Chatterblock, Shared State>
-- If you did this yourself: scan your app for repeated manual work and multi-step flows; those are usually the best first actions.
-- Next step: <one recommended `foldspace-*` skill with concrete inputs>
-- Blockers: <missing source access, unclear product goal, or None>
+Action items:
+- <one exact `foldspace-plan-action` handoff with selected action, modality, and implementation context>
+- <one user-owned action choice, source access, or product goal clarification, only if needed>
 ```

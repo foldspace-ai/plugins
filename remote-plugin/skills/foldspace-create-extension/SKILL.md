@@ -6,12 +6,12 @@ description: Create a Chrome extension project that adds Foldspace to a live web
 # Create the Extension
 ## Integration Path
 
-Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
+Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
 
 You are here: step 1 — create the extension.
 
 Prerequisites: Client or extension name, target host patterns, API host patterns,
-and the Agent Studio SDK install snippet.
+and either Foldspace MCP access or the Agent Studio SDK install snippet.
 
 Skipped a step? Ask what is already complete and route the user to the earliest incomplete prerequisite.
 
@@ -29,7 +29,7 @@ what the extension is and could maintain it themselves:
 - **Why an extension exists**: it injects the Foldspace agent into a site you cannot edit, unlike the in-app SDK path.
 - **What gets injected**: the SDK bootstrap and an action bundle, scoped to the target site's domains.
 - **Local fallback vs production loading**: local development may use the extension background fallback to inject a `localhost` action bundle, while production should use hosted remote actions.
-- **SDK install snippet**: the Agent Studio code block that contains the SDK URL, product key, and agent API name.
+- **SDK install snippet**: the Agent Studio-style code block that contains the SDK URL and product key. Prefer retrieving it with `get_agent_install_snippet` when Foldspace MCP is available.
 - **`SDK_URL` / `PRODUCT_KEY` / `PRODUCT_ID` / `AGENT_API_NAME`**: values parsed from the SDK snippet that tie the extension to the right agent.
 
 ## Required Inputs
@@ -37,21 +37,29 @@ what the extension is and could maintain it themselves:
 - Client or extension name in kebab-case.
 - Target website host patterns.
 - API host patterns observed in DevTools.
-- Agent Studio SDK install snippet from the agent setup page.
+- Foldspace agent ID, or the Agent Studio SDK install snippet from the agent setup page if MCP is unavailable.
 - Whether actions load locally during development or from hosted remote actions.
 - Whether the extension needs page awareness, Shared State, Messaging API prompts, Event API logging, or Task Agent calls.
 
-## Agent Studio Snippet Link And Parsing
+## SDK Snippet Lookup And Parsing
 
-Ask for the full Agent Studio SDK install snippet up front. Do not ask the user
-to manually derive `SDK_URL`, `PRODUCT_KEY`, `PRODUCT_ID`, or `AGENT_API_NAME`
-when the snippet is available.
+If Foldspace MCP is available, call `foldspace_overview`, then `list_agents` to
+find the target agent ID. Once you have the target agent ID:
+
+- Call `get_agent` to read the agent `apiName` for `AGENT_API_NAME`.
+- Call `get_agent_install_snippet` to retrieve the SDK install snippet.
+- If `get_agent_install_snippet` reports multiple products, ask which product ID to use and call it again with `product_id`.
+
+Do not ask the user to paste the Agent Studio SDK install snippet when MCP can
+retrieve it. If MCP is unavailable, ask for the full Agent Studio SDK install
+snippet up front. Do not ask the user to manually derive `SDK_URL`,
+`PRODUCT_KEY`, `PRODUCT_ID`, or `AGENT_API_NAME` when those values are available
+from MCP or the snippet.
 
 Give the user a clickable place to get the snippet:
 
 - General starting point: https://app.foldspace.ai
-- If Foldspace MCP is available, call `foldspace_overview`, then `list_agents` to
-  find the target agent ID. Once you have the agent ID, give the user the exact
+- If MCP is unavailable or the tool cannot retrieve the snippet, use the exact
   setup link:
 
 ```text
@@ -69,11 +77,13 @@ Parse these values from the snippet:
   SDK host in `extension/csp_rules.json`. If Agent Studio gives a different SDK
   URL, update the CSP host to that URL's hostname only.
 - Product key format: `EU-EXAMPLEPRODUCT-1-1` -> `PRODUCT_KEY=EU-EXAMPLEPRODUCT-1-1` and `PRODUCT_ID=EXAMPLEPRODUCT`.
-- Agent API name format: `foldspace.agent('example-agent')` or
-  `foldspace.agent({ apiName: 'example-agent' })` -> `AGENT_API_NAME=example-agent`.
+- Agent API name: prefer `get_agent.apiName` from MCP. If MCP is unavailable, use
+  Agent Studio or parse `foldspace.agent('example-agent')` /
+  `foldspace.agent({ apiName: 'example-agent' })` when present.
 
-If the snippet is missing the agent initialization call, ask for the Agent API
-Name from Agent Studio. Never invent product IDs or agent API names.
+If MCP is unavailable and the snippet is missing the agent initialization call,
+ask for the Agent API Name from Agent Studio. Never invent product IDs or agent
+API names.
 
 ## Default Structure
 
@@ -120,7 +130,7 @@ Customize `extension/manifest.json`, `extension/csp_rules.json`, `extension/inde
 Create the scaffold or provide exact files to create. Include:
 
 - File tree.
-- Values still needed from Agent Studio or DevTools.
+- Values still needed from MCP, Agent Studio, or DevTools.
 - Extension install/test steps.
 - Next action to run: usually `foldspace-observe-flow-in-site`.
 
@@ -145,18 +155,14 @@ Then:
 6. Confirm the expected action callbacks reach `executed` and `finished`.
 7. Inspect the console for SDK registration, handler, or API errors.
 
-## Next Steps And Summary
+## Action Items
 
-After scaffolding, tell the user which files were created or should be customized. Recommend exactly one next step: usually `foldspace-observe-flow-in-site` for one action candidate.
+After scaffolding, tell the user which files were created or should be customized. Recommend exactly one next step: usually `foldspace-observe-flow-in-site` for one action candidate. End with concise user-owned action items instead of a recap.
 
 End every response with:
 
 ```text
-Summary:
-- Completed: <template copied, extension configured, or scaffold files produced>
-- Concepts: <Foldspace terms introduced, e.g. browser extension, injected SDK, PRODUCT_ID/AGENT_API_NAME>
-- Evidence: <target matches, API hosts, SDK snippet values, product ID, Agent API Name, and template path used>
-- Decisions: <local/prod loading, page awareness, Shared State, events, or Task Agent choices>
-- Next step: <usually foldspace-observe-flow-in-site or foldspace-build-action with exact action keys/routes>
-- Blockers: <missing Agent Studio SDK snippet, host patterns, API hosts, or credentials; use "None" if clear>
+Action items:
+- <one exact next skill with concrete inputs>
+- <one setup command, Agent Studio SDK snippet, host pattern, API host, or credential the user must provide, only if needed>
 ```

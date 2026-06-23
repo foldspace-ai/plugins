@@ -61,7 +61,7 @@ foldspace-get-started
 
 Use `foldspace-setup-agent` to add the agent to your site and connect logged-in users. It covers both adding the SDK snippet (snippet, Agent API Name, `foldspace('when', 'ready', ...)`, visibility) and wiring `foldspace.identify(context)` with stable user and subscription IDs.
 
-Use `foldspace-discover-actions` when you do not know which actions to build yet. It scans the frontend and recommends high-value action, Chatterblock, and Shared State opportunities.
+Use `foldspace-discover-actions` when you do not know which actions to build yet. It asks for the business/product name, calls the Foldspace MCP `discover_actions` tool for task-agent recommendations (cold runs can take 20-30 seconds), then scans the frontend to validate feasibility and add file-path evidence for high-value action, Chatterblock, and Shared State opportunities.
 
 Use `foldspace-plan-action` when you have a chosen action idea and need an action ID, description, parameter schema, modality, return shape, and implementation notes before coding. It may recommend a resolver action plus a primary action when that keeps lookup reusable.
 

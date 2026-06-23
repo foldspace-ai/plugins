@@ -29,7 +29,7 @@ Customize per client:
 ## SDK Bootstrap
 
 - Load the Foldspace SDK once and guard against duplicate content-script injection.
-- Initialize with the exact SDK URL, `PRODUCT_KEY`, `PRODUCT_ID`, and `AGENT_API_NAME` from Agent Studio.
+- Initialize with the exact SDK URL, `PRODUCT_KEY`, `PRODUCT_ID`, and `AGENT_API_NAME` from MCP when available, or from the Agent Studio SDK snippet when MCP is unavailable.
 - Use `foldspace('when', 'ready', ...)` before calling agent APIs.
 - Decide whether actions load locally during development or from hosted remote actions.
 - Make local development bundle loading explicit and easy to disable for packaged extensions.
@@ -47,7 +47,7 @@ Customize per client:
 Return:
 
 - File tree created or to create.
-- Values still needed from Agent Studio or DevTools.
+- Values still needed from MCP, Agent Studio, or DevTools.
 - Extension install/test steps.
 - Local-vs-hosted action loading decision.
 - Any page awareness, Shared State, Messaging API, Event API, or Task Agent needs.
