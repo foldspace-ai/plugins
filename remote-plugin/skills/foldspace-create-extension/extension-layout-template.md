@@ -54,7 +54,7 @@ Do not fork these scripts per agent just to change domains, names, permissions, 
 - `REQUEST_DOMAINS`: API hosts observed in DevTools. Keep host access scoped in `extension/manifest.json`.
 - `SDK_URL`: public Foldspace SDK URL in `extension/index.js`; update it only if
   the Agent Studio snippet gives a different SDK URL.
-- `PRODUCT_KEY`, `PRODUCT_ID`, and `AGENT_API_NAME`: copied or parsed from Foldspace Agent Studio.
+- `PRODUCT_KEY`, `PRODUCT_ID`, and `AGENT_API_NAME`: copied or parsed from MCP when available, or from the Agent Studio SDK snippet when MCP is unavailable.
 - SDK script domain: SDK script hostname in `extension/csp_rules.json`, without
   protocol or path. Keep it aligned with `SDK_URL`.
 - `REMOTE_ACTIONS_ENV`: dev/prod switch for local bundle vs hosted bundle.

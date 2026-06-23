@@ -188,15 +188,12 @@ Recommended next-step routing: After a plan is approved, recommend
 implementation notes. If discovery surfaced several actions, plan and build them
 one at a time.
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+Always end with concise user-owned action items, not a recap.
 
 ```markdown
-Summary:
-- Completed: <what was planned>
-- Concepts: <Foldspace terms introduced, e.g. action plan, action ID, return shape, resolver action>
-- If you did this yourself: write down the action ID, its inputs, and the small bit of data it returns before touching code.
-- Next step: <one recommended `foldspace-*` skill with concrete inputs>
-- Blockers: <missing approval, unclear inputs, or None>
+Action items:
+- <one approval or clarification needed from the user>
+- <one exact `foldspace-build-action` handoff with approved action ID, schema, modality, and implementation notes>
 ```

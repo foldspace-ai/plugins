@@ -6,7 +6,7 @@ description: Build the extension code for one agent action after the workflow is
 # Build One Action
 ## Integration Path
 
-Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
+Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
 
 You are here: step 3 — build one remote action.
 
@@ -40,6 +40,8 @@ actions around stable IDs.
 Do not collapse a reusable lookup and the main execution into one action just
 because it is easier to code. Foldspace agents can call multiple actions in
 sequence, and small resolver actions keep future schemas cleaner.
+
+Also you should not be returning any instructions to the agent in actions. All instructions for the agent should be passed in through the agent definition which can be set through the mcp or in Agent Studios in the UI.
 
 ## Workflow
 
@@ -189,18 +191,14 @@ Then:
 7. Inspect the page console for handler errors or API failures such as `401`.
 
 
-## Next Steps And Summary
+## Action Items
 
-After each implementation pass, explain what changed and recommend exactly one next step.
+After each implementation pass, explain what changed only as much as needed for the next step. End with concise user-owned action items.
 
 End every response with:
 
 ```text
-Summary:
-- Completed: <one action plan approved and/or handler implemented>
-- Concepts: <Foldspace terms introduced, e.g. handler-from-evidence, modality, Task Agent, plan approval gate>
-- Evidence: <MCP schema, DevTools requests, API endpoints, files changed, and browser test result>
-- Decisions: <modality, resolver split, auth source, timeout, return shape, confirmation behavior, Task Agent choices, reuse choices>
-- Next step: <usually `foldspace-build-action` for the next action, `foldspace-add-navigation`, or `foldspace-verify-actions` with exact inputs>
-- Blockers: <missing schema, API evidence, credentials, seed data, Task Agent Function in web app, implementation-plan approval, or user approval; use "None" if clear>
+Action items:
+- <one exact next skill or verification step>
+- <one user approval, setup, credential, seed data, Task Agent Function, or browser test step, only if needed>
 ```

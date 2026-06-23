@@ -41,20 +41,23 @@ two, then act. If they say "just do it," skip the narration but still fill in th
 
 ## Prerequisite Gate
 
-Both parts need values from Agent Studio. If the product key or Agent API Name is
-missing, pause and ask the user to copy them from the setup snippet in Agent
-Studio before editing code (Agent Studio -> Setup, e.g.
+Both parts need the SDK product key and Agent API Name. Prefer retrieving them
+with Foldspace MCP: use `get_agent` for the Agent API Name and
+`get_agent_install_snippet` for the SDK snippet. If MCP is unavailable, pause and
+ask the user to copy the setup snippet from Agent Studio before editing code
+(Agent Studio -> Setup, e.g.
 https://app.foldspace.ai/agent/{agent-id}/setup/agent-settings). Do not invent
 product keys or Agent API Names.
 
 If Part A (the snippet) is not done yet, do Part A first. If the snippet is
 already present, you can skip straight to Part B.
 
-## Agent Studio Snippet Parsing
+## Agent Setup Snippet Parsing
 
-When setting up Part A, ask for the full Agent Studio SDK snippet. Prefer parsing
-the needed values from that snippet instead of asking the user to derive them
-manually:
+When setting up Part A, prefer the full SDK snippet from
+`get_agent_install_snippet` when MCP is available. If MCP is unavailable, ask for
+the full Agent Studio SDK snippet. Parse the needed values from the snippet
+instead of asking the user to derive them manually:
 
 - Product key format: `EU-EXAMPLEPRODUCT-1-1` -> product key
   `EU-EXAMPLEPRODUCT-1-1` and product ID `EXAMPLEPRODUCT` when a product ID constant
@@ -81,9 +84,9 @@ Plain-language goal: get the Foldspace agent to load and show up on the site.
 
 ### Required inputs
 
-- The JavaScript SDK snippet from Agent Studio -> Setup.
+- The JavaScript SDK snippet from `get_agent_install_snippet` when MCP is available, or from Agent Studio -> Setup.
 - The product key embedded in that snippet.
-- The Agent API Name from Agent Studio -> Setup.
+- The Agent API Name from `get_agent` when MCP is available, or from Agent Studio -> Setup.
 
 ### Steps
 
@@ -104,16 +107,22 @@ Plain-language goal: get the Foldspace agent to load and show up on the site.
 2. **Check for the SDK snippet.**
    - Search for `foldspace.js`, `window.foldspace`, `__FOLD_SPACE__`, and
      `foldspace('when', 'ready')`.
-   - If missing, tell the user they need the JavaScript snippet from Agent
-     Studio -> Setup.
+   - If missing and Foldspace MCP is available, call `foldspace_overview`, then
+     `list_agents` to find the target agent ID. Call `get_agent` for the Agent
+     API Name and `get_agent_install_snippet` for the SDK snippet.
+   - If `get_agent_install_snippet` reports multiple products, ask which product
+     ID to use and call it again with `product_id`.
+   - If MCP is unavailable, tell the user they need the JavaScript snippet from
+     Agent Studio -> Setup.
      - Provide a link for them to click and get it. You get it at: https://app.foldspace.ai/agent/{agentId}/setup/agent-settings you can get the agentId from the mcp
    - The SDK loads asynchronously and should not block app rendering.
-   - The snippet defines the `foldspace` command queue and loads the SDK script
-     with the product key. Preserve the snippet from Agent Studio unless the
-     app's framework requires adapting script placement.
+  - The snippet defines the `foldspace` command queue and loads the SDK script
+    with the product key. Preserve the MCP or Agent Studio snippet unless the
+    app's framework requires adapting script placement.
 
 3. **Verify agent initialization.**
-   - Every call must reference the Agent API Name from Agent Studio -> Setup.
+   - Every call must reference the Agent API Name from `get_agent` when MCP is
+     available, or from Agent Studio -> Setup when MCP is unavailable.
    - Confirm the code initializes the agent after SDK readiness:
 
 ```javascript
@@ -144,7 +153,7 @@ foldspace("when", "ready", () => {
 
 6. **Apply safety checks.**
    - Do not commit temporary test keys or secrets to shared examples.
-   - Keep the exact product key format from Agent Studio.
+   - Keep the exact product key format from the MCP or Agent Studio snippet.
 
 ---
 
@@ -232,7 +241,7 @@ Optional attributes can include:
 - <bullet per major step: action taken + one-line reason>
 
 ### If You Did This Yourself
-- Agent Studio: copy the setup snippet and Agent API Name from Agent Studio -> Setup.
+- MCP or Agent Studio: use `get_agent_install_snippet` and `get_agent` when MCP is available, or copy the setup snippet and Agent API Name from Agent Studio -> Setup.
 - Docs: https://foldspace.readme.io/docs/installing-the-sdk (load the agent), https://foldspace.readme.io/docs/user-context (connect logged-in users).
 - Manual steps: 1) paste the snippet at your app's root, 2) initialize the agent on ready, 3) call `foldspace.identify` with `user.id` and `subscription.id` after login.
 ```
@@ -241,15 +250,14 @@ Recommended next-step routing: When the agent loads and users are connected,
 recommend `foldspace-discover-actions` if the user does not know what to build,
 or `foldspace-build-action` if approved action plans already exist.
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+After setup work, explain what changed only as much as needed for the next step. Recommend exactly one next step: usually `foldspace-discover-actions` if the user does not know what to build, or `foldspace-build-action` if approved action plans already exist.
+
+End every response with:
 
 ```markdown
-Summary:
-- Completed: <what was done or learned>
-- Concepts: <new Foldspace terms the user should now understand, e.g. SDK snippet, user context, Agent API Name>
-- If you did this yourself: <one sentence pointer to Agent Studio or docs>
-- Next step: <one recommended `foldspace-*` skill with concrete inputs>
-- Blockers: <missing product key, Agent API Name, auth source, or None>
+Action items:
+- <one exact next skill or setup verification step with concrete inputs>
+- <one product key, Agent API Name, auth source, Agent Studio, or docs step needed from the user, only if needed>
 ```

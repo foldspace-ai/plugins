@@ -37,12 +37,13 @@ the terminology? Each skill explains the Foldspace terms it uses as it works, an
 `foldspace-get-started` includes a short glossary of the key terms.
 
 1. `foldspace-create-extension`: create the Chrome MV3 extension and remote action bundle layout.
-2. Pick one action with the user and run `foldspace-observe-flow-in-site`: align on the action goal and user flow before any browser observation.
-3. Use `devtools-reader`: the user performs the agreed flow while the agent watches DevTools and records exact API endpoints.
-4. Run `foldspace-build-action`: write an implementation plan for that one action, then wait for user approval before editing code. In Cursor, use Plan Mode when available; in Claude Code, present the plan and wait for explicit approval.
-5. Repeat steps 2-4 for each additional action.
-6. Run `foldspace-add-navigation` when an action needs navigation labels, route transitions, or cross-page continuation.
-7. Run `foldspace-verify-actions` to confirm enabled MCP actions match extension handlers, schemas, safe returns, and distinct action purposes.
+2. `foldspace-discover-actions`: ask for the business/product name and use Foldspace MCP to get recommended action candidates. Cold discovery can take 20-30 seconds.
+3. Pick one action with the user and run `foldspace-observe-flow-in-site`: align on the action goal and user flow before any browser observation.
+4. Use `devtools-reader`: the user performs the agreed flow while the agent watches DevTools and records exact API endpoints.
+5. Run `foldspace-build-action`: write an implementation plan for that one action, then wait for user approval before editing code. In Cursor, use Plan Mode when available; in Claude Code, present the plan and wait for explicit approval.
+6. Repeat steps 2-5 for each additional action.
+7. Run `foldspace-add-navigation` when an action needs navigation labels, route transitions, or cross-page continuation.
+8. Run `foldspace-verify-actions` to confirm enabled MCP actions match extension handlers, schemas, safe returns, and distinct action purposes.
 
 Use the `devtools-reader` agent when a workflow needs API reverse engineering. Use the `navigation-mapper` agent when a workflow needs route labels, route transitions, or cross-page state.
 

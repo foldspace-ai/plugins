@@ -11,7 +11,7 @@ verification pass, not a general extension readiness or sharing checklist.
 
 ## Integration Path
 
-Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
+Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
 
 You are here: step 5 — verify remote action wiring.
 
@@ -166,16 +166,16 @@ Recommended next-step routing: If handlers are missing or mismatched, recommend
 missing, recommend `foldspace-observe-flow-in-site`. If navigation labels block
 verification, recommend `foldspace-add-navigation`.
 
-## Next Steps And Summary
+## Action Items
+
+End with a verification decision and the clearest possible next action. If blocked, recommend exactly one skill and the concrete inputs needed to fix the blocker.
 
 End every response with:
 
 ```text
-Summary:
-- Completed: <remote actions verified>
-- Concepts: <Foldspace terms reinforced, e.g. remote handler match, action lifecycle, schema match, overlap>
-- Evidence: <MCP schemas, handler registry, browser evidence, action lifecycle state>
-- Decisions: <verified, blocked, or needs fixes>
-- Next step: <one recommended `foldspace-*` skill with exact inputs>
-- Blockers: <missing MCP access, schema, browser evidence, handler, or None>
+Verification decision: <Ready, Ready with limitations, or Blocked>
+
+Action items:
+- <one exact next skill, verification step, or fix with concrete inputs>
+- <one MCP access, schema, browser evidence, handler, or route label detail needed from the user, only if needed>
 ```

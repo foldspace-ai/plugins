@@ -64,6 +64,10 @@ Read other references only when needed:
 - For modality selection and examples, see `action-modalities.md`.
 - For Tandem Mode / Shared State implementation, see `shared-state.md`.
 
+## Important Note:
+
+You should not be returning any instructions to the agent in actions. All instructions for the agent should be passed in through the agent definition which can be set through the mcp or in Agent Studios in the UI.
+
 ## Workflow
 
 Follow these steps in order. Pause where instructed.
@@ -145,15 +149,12 @@ Recommended next-step routing: After implementation, recommend
 `foldspace-verify-actions` for a focused action wiring audit, or
 another `foldspace-build-action` pass for the next approved action.
 
-## Next Steps And Summary
+## Action Items
 
-Always end with:
+After each implementation pass, explain what changed only as much as needed for the next step. End with concise user-owned action items.
 
 ```markdown
-Summary:
-- Completed: <what was done or learned>
-- Concepts: <Foldspace terms introduced, e.g. action handler, return value goes to the agent>
-- If you did this yourself: match the handler's action ID to the Foldspace action exactly, validate inputs, and return only small, safe data.
-- Next step: <one recommended `foldspace-*` skill with concrete inputs>
-- Blockers: <missing schema, MCP access, approval, or None>
+Action items:
+- <one exact next skill, verification step, or next approved action build with concrete inputs>
+- <one schema, MCP access, approval, or browser test step needed from the user, only if needed>
 ```

@@ -6,7 +6,7 @@ description: Teach the agent how to open pages and continue after the user navig
 # Add Page Navigation
 ## Integration Path
 
-Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
+Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
 
 You are here: step 4 — add routes and continuation behavior.
 
@@ -62,18 +62,14 @@ See `navigation-reference.md` for focused Navigation and Messaging API details.
 Recommended next-step routing: After navigation is added, recommend `foldspace-verify-actions` or the next `foldspace-build-action` pass.
 
 
-## Next Steps And Summary
+## Action Items
 
-After mapping routes, explain which labels were added or still need MCP/Agent Studio work. Recommend exactly one next step: usually `foldspace-verify-actions` when navigation is ready, or `foldspace-build-action` when an action depends on the mapped routes.
+After mapping routes, explain which labels were added or still need MCP/Agent Studio work only as needed for the next step. Recommend exactly one next step: usually `foldspace-verify-actions` when navigation is ready, or `foldspace-build-action` when an action depends on the mapped routes.
 
 End every response with:
 
 ```text
-Summary:
-- Completed: <routes mapped, labels proposed/created, and browser verification performed>
-- Concepts: <Foldspace terms introduced, e.g. navigation label, continuation>
-- Evidence: <route patterns, navigation type, continuation state, selectors>
-- Decisions: <label names, route types, continuation context, verification scope>
-- Next step: <usually foldspace-build-action or foldspace-verify-actions with exact routes/actions>
-- Blockers: <missing permissions, object IDs, MCP access, or route evidence; use "None" if clear>
+Action items:
+- <one exact next skill with route/action inputs>
+- <one MCP/Agent Studio update, permission, object ID, or route evidence needed from the user, only if needed>
 ```

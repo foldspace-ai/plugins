@@ -6,7 +6,7 @@ description: Figure out how one agent action works on a live website by opening 
 # Learn From the Live Site
 ## Integration Path
 
-Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
+Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -> `foldspace-discover-actions` -> `foldspace-observe-flow-in-site` -> `foldspace-build-action` -> `foldspace-add-navigation` when needed -> `foldspace-verify-actions`.
 
 You are here: step 2 — learn one live-site action flow.
 
@@ -165,18 +165,14 @@ Use `action-flow-reference.md` when choosing the Foldspace capability and shapin
 Recommended next-step routing: After evidence is captured, recommend `foldspace-build-action` with the action key, API sequence, auth source, schema, and route needs.
 
 
-## Next Steps And Summary
+## Action Items
 
-Always end by recommending exactly one next skill and the concrete inputs to pass to it.
+Always end by recommending exactly one next skill and the concrete inputs to pass to it. Use concise user-owned action items instead of a recap.
 
 End every response with:
 
 ```text
-Summary:
-- Completed: <one action flow aligned and observed>
-- Concepts: <Foldspace terms introduced, e.g. DevTools evidence, modality, Task Agent, evidence-before-code>
-- Evidence: <URLs, API endpoints, request sequence, route evidence, or missing evidence>
-- Decisions: <agreed goal, modality, Task Agent need, safety notes, reuse opportunities>
-- Next step: <usually foldspace-build-action with an implementation-plan handoff, foldspace-add-navigation, or devtools-reader with exact inputs>
-- Blockers: <missing credentials, schemas, API evidence, or approvals; use "None" if clear>
+Action items:
+- <one exact next skill with concrete inputs>
+- <one user-owned browser, credential, schema, API evidence, or approval step, only if needed>
 ```
