@@ -28,8 +28,17 @@ Capture these fields during planning:
 - Description: short internal explanation for the team.
 - Instructions: clear guidance for the one-time LLM task.
 - Output schema: prefer JSON when the action handler needs structured output.
-- Published/tested version: confirm the Task Agent version used by the extension is live or intentionally staged.
 - Creation status: already exists / user must create in web app / blocked.
+
+**Publishing is not optional and not reversible.** A Task Agent must be published
+to be callable — `runTask()` does not resolve a draft. The corollary is the
+dangerous part: publishing an edit to a Task Agent that is already in use reaches
+production immediately, with no staging step and no rollback commit.
+
+So if the Task Agent already exists and something calls it, **do not edit it in
+place to test a change.** Clone it as `_gen2`, publish the clone, and repoint the
+`taskKey` — a published Task Agent that no `taskKey` names is inert. See the
+`foldspace-agent-lifecycle` skill before changing any live object.
 
 ## Web App Handoff
 
@@ -66,6 +75,21 @@ Parameters:
 - `data`: required string or object input payload.
 - `cacheOptions`: optional; choose deliberately for extension freshness.
 - `streamOptions`: optional; only for TEXT response Task Agents.
+
+## Never Send Prompts In `data`
+
+`data` carries data only. No `prompt` field, no instruction strings, no rules
+blocks composed in TypeScript.
+
+A prompt shipped from code is unversioned — it cannot be pinned, diffed, rolled
+back, or edited without a deploy, while the Task Agent's own instructions are
+versioned in the web app. Shipping both creates two sources of truth for the same
+behavior, and they drift until they contradict each other inside the same
+request. Put every instruction in the Task Agent; pass only the inputs it needs.
+
+```
+grep -rn "prompt:" agent/api/     # must return nothing
+```
 
 ## Cache Decisions
 

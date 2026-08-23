@@ -1,0 +1,34 @@
+---
+description: Guardrails for changing Foldspace actions and Task Agents that are already published and in use.
+globs:
+  - "**/agent/**/*"
+  - "**/constants.ts"
+alwaysApply: false
+---
+
+# Live Agent Change Safety
+
+There is no branch, no staging environment, and no review step between an edit in
+Agent Studio and real users.
+
+- **A Task Agent must be published to be callable.** `runTask()` does not resolve
+  a draft, so publishing an edit to an in-use Task Agent reaches production
+  immediately.
+- **Never test by republishing a live object.** Clone it with a `_gen2` suffix,
+  publish the clone, repoint the `taskKey`, test, then deploy. A published object
+  that no `taskKey` names is inert.
+- **Exception:** an object that is unpublished *and* has no call site can be
+  edited in place — nothing can reach it.
+- **Name generations `_gen2`, never `_v2`.** `v1/v2/v3` is Foldspace's own
+  counter, bumped on every prompt or schema save. The suffix is permanent because
+  the `taskKey` names the object.
+- **Never send prompts from code.** `data` carries data only; a prompt shipped
+  from TypeScript is unversioned and will drift from the agent's own instructions.
+  `grep -rn "prompt:" agent/api/` must return nothing.
+- **Know what scopes reachability.** Actions are scoped by handler registration —
+  the server excludes actions the SDK does not transmit as registered. Task Agents
+  are scoped by the `taskKey` in code. Neither is scoped by publish state alone.
+- **State the rollback concretely** before deploying: which commit or which
+  bundle, not "revert".
+- **One owner per concern.** If two components decide the same value, they will
+  disagree eventually.
