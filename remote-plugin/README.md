@@ -10,12 +10,10 @@ APIs, add navigation, and verify the extension before sharing.
 ### Cursor
 
 1. Install or link this plugin in Cursor.
-2. Create a `.env.foldspace` file at the root of the project you have open in
-   Cursor (this is what `${workspaceFolder}` in `mcp.json`'s `envFile` resolves
-   to — not the plugin folder), containing
-   `FOLDSPACE_API_KEY=xxxxxxxx`. Alternatively, export
-   `FOLDSPACE_API_KEY` in your shell to set it once for every project.
-3. Restart or reload Cursor so the Foldspace and Chrome DevTools MCP servers are discovered.
+2. When Cursor prompts you to authenticate Foldspace MCP, complete the browser
+   OAuth login with your Foldspace account.
+3. Restart or reload Cursor so the Foldspace and Chrome DevTools MCP servers are
+   discovered. Verify Foldspace with `list_agents`.
 
 ## Use This When
 
@@ -50,9 +48,9 @@ Use the `devtools-reader` agent when a workflow needs API reverse engineering. U
 ## Components
 
 - `.cursor-plugin/plugin.json`: plugin metadata and component registration.
-- `mcp.json`: Foldspace MCP server config for Cursor.
-- `.claude-plugin/plugin.json`: Claude Code plugin metadata and component paths. The API key comes from `${FOLDSPACE_API_KEY}` via `.mcp.json`.
-- `.mcp.json`: Foldspace MCP server config for Claude Code.
+- `mcp.json`: Foldspace and docs MCP server config for Cursor.
+- `.claude-plugin/plugin.json`: Claude Code plugin metadata and component paths.
+- `.mcp.json`: Foldspace and docs MCP server config for Claude Code.
 - `skills/`: guided workflows for live-site discovery, extension scaffolding, extension actions, navigation, and action verification.
 - `agents/`: specialized subagents for DevTools/network reading and navigation mapping.
 - `rules/`: safety rules for extensions and DevTools evidence in Cursor. Claude Code receives these guardrails through the relevant skills and agents.
@@ -88,7 +86,14 @@ The extension injects the Foldspace SDK and a remote action bundle into the targ
 
 ## Validation
 
-Before using this plugin in Cursor, set `FOLDSPACE_API_KEY` in a `.env.foldspace` file at your open project's root (where `${workspaceFolder}` points), or export it in your shell. Before using it in Claude Code, load it with `claude --plugin-dir ./plugins/remote-plugin` and set `FOLDSPACE_API_KEY` in the Claude Code settings `env` block (or export it). The bundled `chrome-devtools` config runs in isolated browser mode. Use each skill's local support files when the skill includes them. When actions are built, verify enabled MCP actions, handler keys, schemas, safe returns, navigation dependencies, Shared State cleanup, and overlapping action purposes with `foldspace-verify-actions`.
+Before using this plugin in Cursor or Claude Code, complete Foldspace MCP OAuth
+when prompted, then verify with `foldspace_overview` / `list_agents`. Load Claude
+Code with `claude --plugin-dir ./plugins/remote-plugin`. The bundled
+`chrome-devtools` config runs in isolated browser mode. Use each skill's local
+support files when the skill includes them. When actions are built, verify
+enabled MCP actions, handler keys, schemas, safe returns, navigation
+dependencies, Shared State cleanup, and overlapping action purposes with
+`foldspace-verify-actions`.
 
 ## Interaction Contract
 

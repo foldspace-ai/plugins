@@ -1,12 +1,12 @@
 {
   "mcpServers": {
     "foldspace": {
-      "command": "npx",
-      "args": [
-        "-y",
-        "@foldspace_npm/foldspace-mcp@latest"
-      ],
-      "envFile": "${workspaceFolder}/.env.foldspace"
+      "type": "http",
+      "url": "https://api.foldspace.ai/mcp"
+    },
+    "foldspace-docs": {
+      "type": "http",
+      "url": "https://docs.foldspace.ai/mcp"
     }
   }
 }

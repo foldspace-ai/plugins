@@ -7,16 +7,12 @@ before you go live.
 
 ## What It Adds
 
-This plugin connects the assistant to Foldspace through MCP:
+This plugin connects the assistant to Foldspace through the remote HTTP MCP
+server at `https://api.foldspace.ai/mcp`. Auth is browser OAuth against the
+user's Foldspace account. It also starts `foldspace-docs` at
+`https://docs.foldspace.ai/mcp` for searching and fetching developer docs.
 
-```bash
-npx -y @foldspace_npm/foldspace-mcp@latest
-```
-
-The MCP server reads the API key from the `FOLDSPACE_API_KEY` environment variable
-(Cursor via `mcp.json` `envFile`, Claude Code via `.mcp.json` `env`).
-
-The MCP server exposes Foldspace Copilot agents, actions, action versions, and
+The Foldspace MCP server exposes Foldspace agents, actions, action versions, and
 navigation routes to the host assistant. The plugin also includes skills that
 guide clients from product discovery through action specification,
 implementation, and review. It also includes a Foldspace-specific product scout
@@ -27,12 +23,10 @@ subagent for frontend opportunity discovery.
 ### Cursor
 
 1. Install or link this plugin in Cursor.
-2. Create a `.env.foldspace` file at the root of the project you have open in
-   Cursor (this is what `${workspaceFolder}` in `mcp.json`'s `envFile` resolves
-   to — not the plugin folder), containing
-   `FOLDSPACE_API_KEY=xxxxxxxx`. Alternatively, export
-   `FOLDSPACE_API_KEY` in your shell to set it once for every project.
-3. Restart or reload Cursor so the MCP server is discovered.
+2. When Cursor prompts you to authenticate Foldspace MCP, complete the browser
+   OAuth login with your Foldspace account.
+3. Restart or reload Cursor so the Foldspace and Chrome DevTools MCP servers are
+   discovered. Verify Foldspace with `list_agents`.
 
 You usually do not need to invoke skills by name. Just describe what you want in
 chat (for example "add an AI agent to my app" or "what should my agent be able to
@@ -72,10 +66,10 @@ Use `foldspace-verify-actions` when code exists and you want to verify that ever
 ## Components
 
 - `.cursor-plugin/plugin.json` defines the plugin metadata.
-- `mcp.json` defines the Foldspace stdio MCP server for Cursor.
+- `mcp.json` defines the Foldspace and docs MCP servers for Cursor.
 - `.claude-plugin/plugin.json` defines the Claude Code plugin metadata and
-  component paths. The API key comes from `${FOLDSPACE_API_KEY}` via `.mcp.json`.
-- `.mcp.json` defines the Foldspace stdio MCP server for Claude Code.
+  component paths.
+- `.mcp.json` defines the Foldspace and docs MCP servers for Claude Code.
 - `skills/foldspace-get-started/SKILL.md` routes new users to the right next
   step, includes a short glossary of key Foldspace terms, and flags when the
   browser-extension plugin is the better fit.

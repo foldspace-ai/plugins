@@ -67,24 +67,21 @@ is unsure:
 - **User context (`foldspace.identify`)** — telling Foldspace who is signed in (`user.id` + `subscription.id`) so the agent can personalize.
 - **Action** — one thing the agent can do (for example "invite a teammate"); its **handler** is the code that runs, and its return value goes straight back to the agent.
 - **Modality** — how an action behaves: **Text-Only** (background), **Chatterblock** (asks the user in chat), or **Shared State / Tandem Mode** (reads/updates the live page or form).
-- **Public API key** — a Foldspace key that lets MCP list agents/actions and create or update action metadata.
+- **Foldspace MCP** — the HTTP OAuth connection to Foldspace that lets the assistant list agents/actions and create or update action metadata.
 
 ## Foldspace MCP Setup
 
 MCP setup is needed when the agent should list existing Foldspace agents/actions
 or create/update action metadata. Ask the user to:
 
-1. Open [Foldspace Public API](https://app.foldspace.ai/settings/public-api) and
-   create a Public API key.
-2. Create `.env.foldspace` at the root of the project open in Cursor with:
+1. Confirm the Foldspace plugin is installed so MCP loads from the plugin
+   `mcp.json` (`https://api.foldspace.ai/mcp`).
+2. Complete browser OAuth when Cursor or Claude prompts them to authenticate
+   with their Foldspace account.
+3. Verify with `list_agents`. If tools are missing,
+   re-authenticate or reload MCP in settings.
 
-```text
-FOLDSPACE_API_KEY=xxxxxxxx
-```
-
-3. Reload/restart Cursor if MCP tools do not see the key.
-
-Missing MCP setup does not block installing the SDK snippet, but it blocks
+Missing MCP auth does not block installing the SDK snippet, but it blocks
 MCP-backed action discovery, creation, and updates.
 
 ## Workflow
@@ -93,7 +90,7 @@ MCP-backed action discovery, creation, and updates.
    starting point, not do the work yet.
 2. Ask what is already complete:
    - Nothing is installed.
-   - `.env.foldspace` is configured for Foldspace MCP, if action discovery or creation is needed.
+   - Foldspace MCP OAuth is authenticated, if action discovery or creation is needed.
    - The agent is on the page (SDK installed).
    - Logged-in users are connected (user context set up).
    - Actions already exist in Foldspace.

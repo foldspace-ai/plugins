@@ -55,27 +55,20 @@ is unsure:
 - **DevTools evidence** — the network calls and auth you capture by watching the real user flow in the browser, used to build an action accurately.
 - **Navigation label** — a stable name (like `settings_billing`) that lets the agent open the right page.
 - **Task Agent** — a one-time LLM call inside a handler for extraction/summarization when deterministic code is not enough.
-- **Public API key** — a Foldspace key that lets MCP list agents/actions and create or update action metadata for the extension.
+- **Foldspace MCP** — the HTTP OAuth connection to Foldspace that lets the assistant list agents/actions and create or update action metadata for the extension.
 
 ## Foldspace MCP Setup
 
-Before creating or updating actions through MCP, make sure the user has a
-Foldspace Public API key available to this project:
+Before creating or updating actions through MCP, make sure Foldspace MCP is
+authenticated for this session:
 
-1. Ask the user to open [Foldspace Public API](https://app.foldspace.ai/settings/public-api)
-   and create a Public API key.
-2. Ask them to create `.env.foldspace` at the root of the project open in Cursor
-   with:
+1. Confirm the Foldspace plugin is installed so MCP loads from the plugin
+   `mcp.json` (`https://api.foldspace.ai/mcp`).
+2. Ask the user to complete browser OAuth when Cursor or Claude prompts them.
+3. Verify with `list_agents`. If tools are missing,
+   re-authenticate or reload MCP in settings.
 
-```text
-FOLDSPACE_API_KEY=xxxxxxxx
-```
-
-3. Explain that `${workspaceFolder}/.env.foldspace` is the file used by this
-   plugin's `mcp.json`, so it must be in the user's open project.
-4. Ask the user to reload/restart Cursor if MCP tools do not see the key.
-
-Missing MCP setup blocks creating or updating Foldspace actions from the agent,
+Missing MCP auth blocks creating or updating Foldspace actions from the agent,
 but it does not block scaffolding the browser extension itself. If they don't want to use the MCP they can
 do everything through agent studio in the foldspace website.
 
@@ -102,7 +95,7 @@ a no-source-access extension.
 1. Briefly explain you will help find their starting point, not do the work yet.
 2. Ask what is already complete:
    - No extension exists yet.
-   - `.env.foldspace` is configured for Foldspace MCP, if action creation or updates are needed.
+   - Foldspace MCP OAuth is authenticated, if action creation or updates are needed.
    - The extension is created (scaffolded).
    - Action candidates have been discovered from the business/product name.
    - One action candidate is selected.
@@ -131,7 +124,7 @@ You selected the browser-extension plugin, so this path assumes no target produc
 
 ### What I Need From You
 - <target URL, current extension state, action candidate, DevTools evidence, schema, or approval status>
-- <whether `.env.foldspace` exists with `FOLDSPACE_API_KEY` when MCP action creation/update is needed>
+- <whether Foldspace MCP OAuth is authenticated when MCP action creation/update is needed>
 
 ### Next Skill
 Run `<namespaced foldspace remote skill command>` because <one-sentence reason>.
@@ -149,6 +142,6 @@ If no extension exists, say that you are reading `foldspace-create-extension` no
 ```markdown
 Action items:
 - <one exact next remote skill or workflow step with concrete input>
-- <one user-owned target URL, API key, Product ID, Agent API Name, DevTools evidence, or approval, only if needed>
+- <one user-owned target URL, MCP OAuth auth, Product ID, Agent API Name, DevTools evidence, or approval, only if needed>
 - <one correction logging step, only if the user corrected agent-created work>
 ```
