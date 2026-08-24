@@ -17,7 +17,7 @@ Remote extension path: `foldspace-get-started` -> `foldspace-create-extension` -
 
 You are here: discover candidate actions before observing one live-site flow.
 
-Prerequisites: Foldspace MCP is configured with `FOLDSPACE_API_KEY`, and the user
+Prerequisites: Foldspace MCP is authenticated via OAuth, and the user
 has a target Foldspace agent ID. A created extension is helpful but not required
 for ideation.
 

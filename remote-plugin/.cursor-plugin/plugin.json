@@ -1,7 +1,7 @@
 {
   "name": "foldspace-remote-plugin",
   "displayName": "Foldspace: Browser Extension",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Add a Foldspace AI agent to a website you cannot edit by building a Chrome extension. Create the extension, learn workflows from the live site, build actions one at a time, add navigation, and validate before sharing.",
   "author": {
     "name": "Foldspace"

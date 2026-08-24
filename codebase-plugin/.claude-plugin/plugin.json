@@ -1,7 +1,7 @@
 {
   "name": "foldspace-codebase-plugin",
   "displayName": "Foldspace: Add to Your App",
-  "version": "0.1.0",
+  "version": "1.1.0",
   "description": "Add a Foldspace AI agent to a website you can edit. Set it up, find and build the actions it should do, and run a launch checklist before going live.",
   "author": {
     "name": "Foldspace"

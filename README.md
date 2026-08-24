@@ -64,13 +64,9 @@ claude plugin install foldspace-codebase-plugin@foldspace-plugins
 claude plugin install foldspace-remote-plugin@foldspace-plugins
 ```
 
-The installed plugin starts its MCP servers from `.mcp.json`. Provide the
-Foldspace API key through Claude Code settings or the shell that launches
-Claude:
-
-```bash
-export FOLDSPACE_API_KEY=xxxxxxxx
-```
+The installed plugin starts its MCP servers from `.mcp.json`. Foldspace MCP
+uses HTTP OAuth against `https://api.foldspace.ai/mcp`. When Claude prompts you
+to authenticate, complete the browser login with your Foldspace account.
 
 Inside Claude Code, run `/plugin`, `/mcp`, and `/agents` to confirm the plugin,
 MCP server, and plugin agents loaded.
@@ -79,29 +75,28 @@ MCP server, and plugin agents loaded.
 
 The same public repository includes `.cursor-plugin/marketplace.json` and each
 plugin's `.cursor-plugin/plugin.json` for Cursor distribution. Install the
-plugin through Cursor's plugin flow, then create a `.env.foldspace` file at the
-root of the project you have open in Cursor:
-
-```bash
-FOLDSPACE_API_KEY=xxxxxxxx
-```
-
-Each plugin's `mcp.json` loads that key with:
+plugin through Cursor's plugin flow. Each plugin's `mcp.json` connects to the
+remote Foldspace MCP server:
 
 ```json
 {
   "mcpServers": {
     "foldspace": {
-      "command": "npx",
-      "args": ["-y", "@foldspace_npm/foldspace-mcp@latest"],
-      "envFile": "${workspaceFolder}/.env.foldspace"
+      "type": "http",
+      "url": "https://api.foldspace.ai/mcp"
+    },
+    "foldspace-docs": {
+      "type": "http",
+      "url": "https://docs.foldspace.ai/mcp"
     }
   }
 }
 ```
 
-The browser-extension plugin also starts Chrome DevTools MCP in isolated browser
-mode for live-site workflow discovery.
+When Cursor prompts you to authenticate, complete the browser OAuth login with
+your Foldspace account. Each plugin also starts `foldspace-docs` for searching
+and fetching developer documentation. The browser-extension plugin also starts
+Chrome DevTools MCP in isolated browser mode for live-site workflow discovery.
 
 ## Verify Installation
 
@@ -118,11 +113,11 @@ In Claude Code, run:
 /agents
 ```
 
-In Cursor, check the MCP settings panel after installing the plugin and adding
-`.env.foldspace`.
+In Cursor, check the MCP settings panel after installing the plugin and
+completing OAuth if prompted.
 
-If the Foldspace MCP server is not connected, confirm that `FOLDSPACE_API_KEY`
-is available to the app you are using and restart Cursor or Claude Code.
+If the Foldspace MCP server is not connected, re-authenticate in MCP settings
+or reload/restart Cursor or Claude Code.
 
 ## Typical Workflows
 
