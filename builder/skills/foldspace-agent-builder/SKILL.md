@@ -99,7 +99,7 @@ Never report success without all six.
 |---|---|---|
 | 1 | It compiles | `npx tsc --noEmit -p tsconfig.json` |
 | 2 | The edit reached the artifact | grep `dist/index.js` for a string from your change |
-| 3 | The browser ran it | actions attached in the attach log |
+| 3 | The browser ran it | your handlers are registered in the page — see the loop reference for your track |
 | 4 | It behaves | drive the real UI and assert on the outcome |
 | 5 | Neighbours still work | replay the fixture set |
 | 6 | **Every fixture came from the live app** | no hand-authored payload stands in for a real one |
@@ -130,9 +130,13 @@ the envelope.
 
 ## Going deeper
 
-| Reference | When |
-|---|---|
-| `references/local-loop.md` | running the harness, verifying you are on local code |
-| `references/navigation.md` | adding routes — **read before creating any** |
-| `references/generations.md` | changing anything already live |
-| `references/test-mode.md` | working on a tenant with real users |
+Sections 1-7 above apply wherever the builder runs. Only the **loop** — how code
+reaches the page and how you observe it — differs by track, and that is confined
+to one reference.
+
+| Reference | When | Track |
+|---|---|---|
+| `references/local-loop.md` | running the harness, verifying you are on local code | **local only** |
+| `references/navigation.md` | adding routes — **read before creating any** | both |
+| `references/generations.md` | changing anything already live | both |
+| `references/test-mode.md` | working on a tenant with real users | both |

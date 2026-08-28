@@ -1,4 +1,13 @@
-# The local loop
+# The local loop — Claude Code on a desktop
+
+> **This reference is track-specific.** It covers the local harness: an isolated
+> Chrome driven over CDP from a desktop. Everything in the playbook itself
+> applies to any track; only this file assumes a browser you launched.
+>
+> The remote track — a hosted agent driving a Web Store extension in the user's
+> own Chrome — does the same three jobs (load the bundle, run code, look at the
+> result) through the extension instead. Its equivalent reference does not exist
+> yet.
 
 `@foldspace/harness` provides the tooling. The client repo provides `agent/`,
 fixtures and `foldspace.dev.json`.
