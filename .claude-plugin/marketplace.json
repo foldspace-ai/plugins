@@ -8,6 +8,18 @@
   },
   "plugins": [
     {
+      "name": "foldspace-agent-builder",
+      "source": "./builder",
+      "description": "Build a Foldspace agent experience inside a customer's web app \u2014 one playbook, two investigation agents.",
+      "category": "developer-tools",
+      "tags": [
+        "foldspace",
+        "ai-agent",
+        "actions",
+        "navigation"
+      ]
+    },
+    {
       "name": "foldspace-codebase-plugin",
       "source": "./codebase-plugin",
       "description": "Add a Foldspace AI agent to a website you have the source code for.",

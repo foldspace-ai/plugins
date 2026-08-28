@@ -1,0 +1,16 @@
+{
+  "mcpServers": {
+    "foldspace": {
+      "type": "http",
+      "url": "https://api.foldspace.ai/mcp"
+    },
+    "foldspace-docs": {
+      "type": "http",
+      "url": "https://docs.foldspace.ai/mcp"
+    },
+    "chrome-devtools": {
+      "command": "npx",
+      "args": ["-y", "chrome-devtools-mcp@latest", "--isolated"]
+    }
+  }
+}
