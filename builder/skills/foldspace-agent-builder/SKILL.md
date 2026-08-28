@@ -50,6 +50,27 @@ is how you prove what moved.
 Conversation starters seeded at sign-up are often a specification someone has
 already written. Read them.
 
+### Search the docs before assuming how the platform behaves
+
+`docs.foldspace.ai` is reachable over MCP — `search_docs` and `fetch_page` —
+from any agent, in any editor. Query it whenever you are about to rely on a
+belief about Foldspace itself: what must be published, how versioning works,
+what a built-in already does.
+
+This is not optional politeness. In August 2026 a build spent real time on
+"must an action be published to be callable?", left it unresolved as a known
+blocker, and shipped around it — while `/user-guides/authoring-actions/` said
+plainly: *"actions must be Published before the agent can use them."* One
+search. The connector was declared in the repo and never queried.
+
+**Two rules follow:**
+
+- Before asserting how the platform works, search the docs. If the docs answer
+  it, cite the page.
+- If the docs **do not** cover it — navigation semantics, for instance — say so
+  explicitly, and write down what you learn. An undocumented behaviour you
+  discovered is the next person's blocker.
+
 ## 3. Agree the experience in the customer's words
 
 State the decomposition in plain language and get agreement **before** creating
@@ -121,7 +142,8 @@ the envelope.
    converts units. Nothing does both.
 3. **Never edit a live object to test it.** Stand up a `_gen2` beside it.
 4. **Say what you verified and what you assumed.** An unverified assumption
-   stated as fact is worse than an open question.
+   stated as fact is worse than an open question. "The docs say X" and "I think
+   X" are different claims — mark which one you are making.
 5. **Don't send chat messages to test.** Every message is a real conversation in
    the customer's list. `runTask` creates no conversation record — use it. On a
    brand-new agent during initial setup this cost is nil, so test mode is
