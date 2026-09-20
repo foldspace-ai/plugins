@@ -1,6 +1,6 @@
 # foldspace-agent-builder
 
-One playbook, two investigation agents.
+Three MCP servers, two investigation agents, and a pointer to the playbook.
 
 Replaces `codebase-plugin` and `remote-plugin`, which between them held 13 skills
 and ~4,200 lines across five entry points. A build in August 2026 used none of
@@ -11,7 +11,7 @@ them and made two mistakes the guidance already covered — because skills must 
 
 | | |
 |---|---|
-| `skills/foldspace-agent-builder/SKILL.md` | The playbook. Objects, sequence, reachability, six gates, non-negotiables |
+| `skills/foldspace-agent-builder/SKILL.md` | Points at the playbook — `@foldspace_npm/harness`'s `CLAUDE.md`, which every scaffolded project imports — and lists what only this plugin adds |
 | `references/navigation.md` | Read before creating any route |
 | `references/local-loop.md` | Running the harness; what will mislead you |
 | `references/generations.md` | Changing anything already live |
@@ -25,21 +25,16 @@ that return a summary — the shape of work that otherwise floods the main conte
 ## The plugin is one delivery, not the source
 
 The plugin format is a **Claude Code** construct, so this package only reaches
-builders working there. The playbook inside it is not Claude Code specific:
-sections 1-7 apply wherever the builder runs, and only `references/local-loop.md`
-assumes a desktop Chrome you launched.
+builders working there. The build rules therefore do not live here: they live
+in `@foldspace_npm/harness`'s `CLAUDE.md`, which every scaffolded project
+imports and `foldspace upgrade` keeps current — in every editor. This plugin
+adds the MCP servers, the two subagents, and the references the manual points
+at.
 
-That matters because the same content has three audiences:
-
-| Delivery | Reaches |
-|---|---|
-| this plugin skill | Claude Code, local track |
-| a page on docs.foldspace.ai | any agent via the docs MCP, other editors, humans |
-| a hosted agent's system prompt | the remote track |
-
-**Generate those from this source — do not copy it.** Four hand-maintained
-copies of the previous playbook existed, and the only one carrying the
-navigation section and gate 6 was the copy no build ever read.
+**Do not copy the rules into this repo.** Four hand-maintained copies of the
+previous playbook existed, and the only one carrying the navigation section and
+gate 6 was the copy no build ever read. When this plugin and the harness
+disagree, the harness wins.
 
 ## Enable it
 
