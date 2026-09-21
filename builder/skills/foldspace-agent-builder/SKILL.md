@@ -24,8 +24,9 @@ Follow <https://foldspace.ai/agents.md>: connect the tools, confirm the account,
 
 | | |
 |---|---|
-| **Three MCP servers** — `foldspace`, `foldspace-docs`, `chrome-devtools` | Declared in `.mcp.json`. The plugin can declare `foldspace`; only the human can approve its sign-in (`/mcp` → **foldspace** → browser) |
-| **`devtools-reader`** subagent | Read-only: drives the signed-in page, watches its requests, returns the API notes — so the traffic never floods the main context |
+| **Two MCP servers** — `foldspace`, `foldspace-docs` | Declared in `.mcp.json`. No browser server: the harness project reads its own test window with `foldspace observe` and tests with `foldspace ask`; a DevTools server started with `--isolated` opens a different, signed-out Chrome. The plugin can declare `foldspace`; only the human can approve its sign-in (`/mcp` → **foldspace** → browser) |
+| **`account-scout`** subagent | Read-only, small fast model, three-minute budget: runs `foldspace observe` for one experience and returns the one request behind it, in fifteen lines |
+| **`devtools-reader`** subagent | Read-only: the longer investigation, with the same commands, when one screen is not enough |
 | **`navigation-mapper`** subagent | Read-only: maps routes and destinations |
 | `references/` | Depth the manual points at, below |
 
