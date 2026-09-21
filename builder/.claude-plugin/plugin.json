@@ -1,6 +1,8 @@
 {
   "name": "foldspace-agent-builder",
-  "version": "2.0.0",
-  "description": "Build a Foldspace agent experience inside a customer's web app — one playbook, two investigation agents.",
-  "author": { "name": "Foldspace" }
+  "version": "2.1.0",
+  "description": "Build a Foldspace agent experience inside a customer's web app — one playbook, three investigation agents.",
+  "author": {
+    "name": "Foldspace"
+  }
 }
