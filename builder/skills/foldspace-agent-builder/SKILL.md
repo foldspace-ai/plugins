@@ -24,13 +24,11 @@ Follow <https://foldspace.ai/agents.md>: connect the tools, confirm the account,
 
 | | |
 |---|---|
-| **Three MCP servers** — `foldspace`, `foldspace-docs`, `chrome-devtools` | Declared in `.mcp.json`. The plugin can declare `foldspace`; only the human can approve its sign-in (`/mcp` → **foldspace** → browser) |
-| **`devtools-reader`** subagent | Read-only: drives the signed-in page, watches its requests, returns the API notes — so the traffic never floods the main context |
-| **`navigation-mapper`** subagent | Read-only: maps routes and destinations |
+| **Two MCP servers** — `foldspace`, `foldspace-docs` | Declared in `.mcp.json`. The plugin can declare `foldspace`; only the human can approve its sign-in (`/mcp` → **foldspace** → browser) |
 | `references/` | Depth the manual points at, below |
 
-Subagents are for read-only investigation that returns a summary. Never
-delegate a handler or a gate to one — a summary of a gate is not a gate.
+Reading the customer's app is `foldspace observe`, in the harness: it reads the
+test window the human signed in to.
 
 ## References
 

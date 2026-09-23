@@ -10,7 +10,7 @@
     {
       "name": "foldspace-agent-builder",
       "source": "./builder",
-      "description": "Build a Foldspace agent experience inside a customer's web app — one playbook, two investigation agents.",
+      "description": "Build a Foldspace agent experience inside a customer's web app — one playbook and the Foldspace MCP servers.",
       "category": "developer-tools",
       "tags": [
         "foldspace",
