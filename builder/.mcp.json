@@ -7,10 +7,6 @@
     "foldspace-docs": {
       "type": "http",
       "url": "https://docs.foldspace.ai/mcp"
-    },
-    "chrome-devtools": {
-      "command": "npx",
-      "args": ["-y", "chrome-devtools-mcp@latest", "--isolated"]
     }
   }
 }

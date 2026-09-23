@@ -1,6 +1,6 @@
 # foldspace-agent-builder
 
-Three MCP servers, two investigation agents, and a pointer to the playbook.
+Two MCP servers and a pointer to the playbook.
 
 Replaces `codebase-plugin` and `remote-plugin`, which between them held 13 skills
 and ~4,200 lines across five entry points. A build in August 2026 used none of
@@ -16,11 +16,7 @@ them and made two mistakes the guidance already covered — because skills must 
 | `references/local-loop.md` | Running the harness; what will mislead you |
 | `references/generations.md` | Changing anything already live |
 | `references/test-mode.md` | Tenants with real users |
-| `agents/devtools-reader.md` | Read-only: watch a workflow, produce API notes |
-| `agents/navigation-mapper.md` | Read-only: map routes and destinations |
 
-The subagents stay because they are context-heavy read-only *investigations*
-that return a summary — the shape of work that otherwise floods the main context.
 
 ## The plugin is one delivery, not the source
 
@@ -28,8 +24,7 @@ The plugin format is a **Claude Code** construct, so this package only reaches
 builders working there. The build rules therefore do not live here: they live
 in `@foldspace_npm/harness`'s `CLAUDE.md`, which every scaffolded project
 imports and `foldspace upgrade` keeps current — in every editor. This plugin
-adds the MCP servers, the two subagents, and the references the manual points
-at.
+adds the MCP servers and the references the manual points at.
 
 **Do not copy the rules into this repo.** Four hand-maintained copies of the
 previous playbook existed, and the only one carrying the navigation section and

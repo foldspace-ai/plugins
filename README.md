@@ -1,8 +1,8 @@
 # Foldspace Plugins
 
 This repository is the public Claude Code marketplace for Foldspace. It ships
-one plugin: **foldspace-agent-builder** — a single playbook plus two
-investigation agents for building a Foldspace agent experience inside a
+one plugin: **foldspace-agent-builder** — a pointer to the build playbook plus
+the Foldspace MCP servers, for building a Foldspace agent experience inside a
 customer's web app.
 
 ## Install (Claude Code)
@@ -23,8 +23,8 @@ The installed plugin starts its MCP servers from `builder/.mcp.json`. Foldspace
 MCP uses HTTP OAuth against `https://api.foldspace.ai/mcp`. When Claude prompts
 you to authenticate, complete the browser login with your Foldspace account.
 
-Inside Claude Code, run `/plugin`, `/mcp`, and `/agents` to confirm the plugin,
-MCP server, and plugin agents loaded.
+Inside Claude Code, run `/plugin` and `/mcp` to confirm the plugin and its MCP
+servers loaded.
 
 ## What Is Included
 
@@ -33,7 +33,6 @@ MCP server, and plugin agents loaded.
 - `.claude-plugin/plugin.json`: Claude Code plugin metadata
 - `.mcp.json`: Claude Code MCP server configuration
 - `skills/foldspace-agent-builder/`: the playbook and references
-- `agents/`: `devtools-reader` and `navigation-mapper`
 - `README.md`: plugin-specific notes
 
 ## Refresh After Updates
