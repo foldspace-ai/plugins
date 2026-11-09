@@ -38,3 +38,4 @@ test window the human signed in to.
 | `references/navigation.md` | **read before creating any route** |
 | `references/generations.md` | changing anything already live |
 | `references/test-mode.md` | a tenant with real users |
+| `references/agent-settings.md` | the user asks why the agent does or doesn't do something, or to turn a feature on or off |

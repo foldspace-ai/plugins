@@ -16,6 +16,7 @@ them and made two mistakes the guidance already covered — because skills must 
 | `references/local-loop.md` | Running the harness; what will mislead you |
 | `references/generations.md` | Changing anything already live |
 | `references/test-mode.md` | Tenants with real users |
+| `references/agent-settings.md` | Reading and changing agent settings; snippet overrides |
 
 
 ## The plugin is one delivery, not the source
